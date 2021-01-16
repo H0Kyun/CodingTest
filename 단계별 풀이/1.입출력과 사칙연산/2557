@@ -1,8 +1,6 @@
 문제 출처: https://www.acmicpc.net/problem/2557
 
-```Kotlin
+Kotlin
 fun main(){
     println("Hello World!")
 }
-
-```
