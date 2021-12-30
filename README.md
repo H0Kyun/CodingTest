@@ -1,2 +1,5 @@
-## 백준 온라인 저지 문제 풀이를 적는 곳
-[백준 사이트]<https://www.acmicpc.net/>
+# BOJ-solution  
+
+
+[![solved.ac tier](http://mazassumnida.wtf/api/v2/generate_badge?boj=rlaghrbs1633)](https://solved.ac/rlaghrbs1633)
+
