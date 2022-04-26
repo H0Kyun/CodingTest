@@ -18,7 +18,7 @@ int main(int argc, char** argv)
         for(int i = 1; i <= 10; i++)
         {
             cin >> number;
-            if(number % 2 == 1)
+            if(number % 2 != 0)
                 sum += number;
         }
         
