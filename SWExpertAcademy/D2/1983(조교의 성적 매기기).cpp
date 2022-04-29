@@ -1,3 +1,5 @@
+// 문제 출처: https://swexpertacademy.com/main/code/problem/problemSubmitHistory.do?contestProbId=AV5PwGK6AcIDFAUq
+
 #include<iostream>
 #include<vector>
 #include<algorithm>
@@ -36,7 +38,7 @@ int main(int argc, char** argv)
                 
         for(int i = 1; i <= 10; i++)
         {
-            if(avg[(students_number / 10) * i] < student_k_score)
+            if(avg[(students_number / 10) * i - 1] <= student_k_score)
             {
             	j = i - 1;
             	break;
