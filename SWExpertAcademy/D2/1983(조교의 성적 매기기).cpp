@@ -8,14 +8,14 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
-	int test_case;
+    int test_case;
 	int T;
 	
 	cin >> T;
     
 	for(test_case = 1; test_case <= T; ++test_case)
 	{
-		int students_number, student_k;
+	    int students_number, student_k;
         float mid_test_score, final_test_score, assignment_score, student_k_score;
         vector<float> avg;
         
