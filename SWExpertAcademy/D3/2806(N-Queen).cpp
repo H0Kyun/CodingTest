@@ -18,7 +18,7 @@ void findQueen(vector<vector<bool>> board, int row, int column, int numberOfQuee
     if(row >= boardSize)
         return;
     
-   for(int i = 0; i < boardSize; i++)
+    for(int i = 0; i < boardSize; i++)
         board[i][column] = false;
     
     for(int j = 1; column + j < boardSize; j++)
