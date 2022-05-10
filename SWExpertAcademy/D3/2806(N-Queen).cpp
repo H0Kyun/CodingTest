@@ -3,37 +3,49 @@
 
 using namespace std;
 
-void findQueen(vector<vector<bool>> &board, int row, int column)
+int Count = 0;
+
+void findQueen(vector<vector<bool>> board, int row, int column, int numberOfQueens)
 {
     int boardSize = board[row].size();
-    for(int i = 0; i < boardSize; i++)
+
+    if(numberOfQueens == 0)
     {
-        board[row][i] = false;
-        board[i][column] = false;
+        Count++;
+        return;
     }
-
-    for(int i = 0; i < boardSize; i++)
-    {
-        for(int j = 1; column + j < boardSize; j++)
-        {
-            board[i][column + j] = false;
-        }
-
-        for(int j = 1; column - j > boardSize; j++)
-        {
-            board[i][column - j] = false;
-        }
-    }
-
     
-
-    for(int i = row + 1; i < boardSize; i++)
+    if(row >= boardSize)
+        return;
+    
+   for(int i = 0; i < boardSize; i++)
+        board[i][column] = false;
+    
+    for(int j = 1; column + j < boardSize; j++)
     {
-        if(board[i][0])
+        if(row + j >= boardSize)
             break;
+        board[row + j][column + j] = false;
     }
 
-    board[row][column] = true;
+    for(int j = 1; column - j >= 0; j++)
+    {
+        if(row + j >= boardSize)
+            break;
+        board[row + j][column - j] = false;
+    }
+
+    for(int i = column + 1; i < boardSize; i++)
+    {
+        if(board[row + 1][i])
+            findQueen(board, row + 1, i, numberOfQueens - 1);
+    }
+
+    for(int i = column - 1; i >= 0; i--)
+    {
+        if(board[row + 1][i])
+            findQueen(board, row + 1, i, numberOfQueens - 1);
+    }
 }
 
 int main(int argc, char** argv)
@@ -44,6 +56,7 @@ int main(int argc, char** argv)
 
     for(testCase = 1; testCase <= T; testCase++)
     {
+        Count = 0;
         int boardSize;
 
         cin >> boardSize;
@@ -52,9 +65,10 @@ int main(int argc, char** argv)
 
 
         //재귀 함수 사용
-        findQueen(board, 0, 0);
+        for(int i = 0; i < boardSize; i++)
+        	findQueen(board, 0, i, boardSize - 1);
 
-        cout << "#" << testCase << " " << endl;
+        cout << "#" << testCase << " " << Count << endl;
     }
 
     return 0;
