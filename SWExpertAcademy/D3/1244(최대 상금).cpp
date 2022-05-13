@@ -37,6 +37,7 @@ int main(int argc, char** argv)
         sort(compareNumbers.begin(), compareNumbers.end(), greater<>());
         reverse(numbers.begin(), numbers.end());
 
+        int maxValue;
         bool isDuplicate = false;
         bool isMaximumDuplicate = false;
 
@@ -45,7 +46,10 @@ int main(int argc, char** argv)
             if (compareNumbers[i] == compareNumbers[i + 1])
             {
                 if (i == 0)
+                {
+                    maxValue = compareNumbers[i];
                     isMaximumDuplicate = true;
+                }
 
                 isDuplicate = true;
                 break;
@@ -58,7 +62,7 @@ int main(int argc, char** argv)
         {
             if (numbers[i] != compareNumbers[i])
             {
-                if (isMaximumDuplicate)
+                if (isMaximumDuplicate && compareNumbers[i] == maxValue && compareNumbers[i + 1] == maxValue)
                 {
                     for(j = numbers.size() - 1; j > i; j--)
                     {
@@ -103,17 +107,17 @@ int main(int argc, char** argv)
             numbers[numbers.size() - 2] = temp;
         }
 
-        number = 0;
+        maxPrizeMoney = 0;
 
-        for (int i = numbers.size() - 1; i > 0; i--)
+        for (int i = 0; i < numbers.size() - 1; i++)
         {
-            number += numbers[numbers.size() - i - 1] * int(pow(10, i));
+            maxPrizeMoney += numbers[i] * pow(10, numbers.size() - i - 1);
         }
 
-        number += numbers.back();
+        maxPrizeMoney += numbers.back();
         
 
-        cout <<"#" << testCase << " " << number << "\n";
+        cout <<"#" << testCase << " " << maxPrizeMoney << "\n";
     }
 
     return 0;
