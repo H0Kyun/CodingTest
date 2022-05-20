@@ -15,14 +15,7 @@ int main(int argc, char** argv)
 
     for(testCase = 1; testCase <= T; testCase++)
     {
-        int numberOfStudents;
-        int numberOfTeams;
-
-        cin >> numberOfStudents;
-
-        numberOfTeams = numberOfStudents / 3;
         
-        cout << "#" << testCase << " " << numberOfTeams << "\n";
     }
 
     return 0;
