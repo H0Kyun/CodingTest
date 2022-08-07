@@ -1,6 +1,5 @@
 // 문제 출처: https://www.acmicpc.net/problem/2563
 #include<iostream>
-#include<vector>
 
 using namespace std;
 
