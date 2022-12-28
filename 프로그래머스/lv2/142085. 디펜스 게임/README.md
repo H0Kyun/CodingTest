@@ -1,6 +1,6 @@
-# [unrated] 디펜스 게임 - 142085 
+# [level 2] 디펜스 게임 - 142085
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/142085) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/142085)
 
 ### 성능 요약
 
@@ -88,6 +88,5 @@
 <ul>
 <li>준호는 모든 공격에 무적권을 사용하여 4라운드까지 막을 수 있습니다.</li>
 </ul>
-
 
 > 출처: 프로그래머스 코딩 테스트 연습, https://programmers.co.kr/learn/challenges
