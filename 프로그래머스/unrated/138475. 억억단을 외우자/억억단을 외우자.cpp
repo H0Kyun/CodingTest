@@ -23,30 +23,26 @@ int get_divisor_count(int n)
 }
 
 vector<int> solution(int e, vector<int> starts) {
-    vector<int> answer(starts.size());
-
-    //int divisor_count[2][e + 1];
     vector<int> divisor_count(e + 1);
-    vector<int> divisor_count2(e + 1);
-    for(int i = 1; i <= e; i++)
+    vector<int> max_divisor(e + 1);
+    
+    for(int i = 2; i <= e; i++)
         for(int j = 1; j <= (e / i); j++)
             divisor_count[i * j]++;
     
     
-    //divisor_count[1][e] = e;
-    divisor_count2[e] = e;
+    max_divisor[e] = e;
     for(int i = e - 1; i >= 1; i--)
     {
-        if(divisor_count[divisor_count2[i + 1]] <= divisor_count[i])
-            divisor_count2[i] = i;
+        if(divisor_count[max_divisor[i + 1]] <= divisor_count[i])
+            max_divisor[i] = i;
         else
-            divisor_count2[i] = divisor_count2[i + 1];
+            max_divisor[i] = max_divisor[i + 1];
     }
     
+    vector<int> answer(starts.size());
     for(int i = 0; i < starts.size(); i++)
-    {
-        answer[i] = divisor_count2[starts[i]];
-    }
+        answer[i] = max_divisor[starts[i]];
 
     return answer;
 }
