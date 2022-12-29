@@ -1,4 +1,4 @@
-# [unrated] 억억단을 외우자 - 138475 
+# [level 3] 억억단을 외우자 - 138475 
 
 [문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/138475) 
 
