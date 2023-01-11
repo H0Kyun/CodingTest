@@ -1,4 +1,4 @@
-# [unrated] 이모티콘 할인행사 - 150368 
+# [level 2] 이모티콘 할인행사 - 150368 
 
 [문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/150368) 
 
