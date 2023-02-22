@@ -10,6 +10,7 @@ class Solution {
         Queue<Integer> q = new ArrayDeque<>();
         q.offer(x);
         
+        // 중복되는 숫자로 인한 메모리 초과를 방지하기 위한 Set
         Set<Integer> set = new HashSet<>();
         
         while(!q.isEmpty()) {
@@ -20,7 +21,8 @@ class Solution {
                 set.add(x);
                 
                 if(x == y) return answer;
-            
+                
+                // 1,000,000을 넘어가면 의미가 없으므로 제한을 둔다.
                 if(x + n <= 1000000) {
                     q.offer(x + n);
                 }
