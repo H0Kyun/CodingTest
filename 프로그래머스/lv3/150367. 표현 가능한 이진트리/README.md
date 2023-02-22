@@ -1,4 +1,4 @@
-# [unrated] 표현 가능한 이진트리 - 150367 
+# [level 3] 표현 가능한 이진트리 - 150367 
 
 [문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/150367#) 
 
