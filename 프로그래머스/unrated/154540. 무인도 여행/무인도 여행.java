@@ -6,24 +6,29 @@ import java.util.Comparator;
 
 class Solution {
     boolean[][] visited;
+    
     public int[] solution(String[] maps) {
         List<Integer> answer = new ArrayList<>();
         visited = new boolean[maps.length][maps[0].length()];
+        
+        // 각 섬을 완전 탐색
         for(int i = 0; i < maps.length; i++) {
             for(int j = 0; j < maps[0].length(); j++) {
-                if(visited[i][j]) continue;
-                if(maps[i].charAt(j) != 'X') {
-                    answer.add(bfs(i, j, maps));
-                }
+                if(visited[i][j] || maps[i].charAt(j) == 'X') continue;
                 
+                answer.add(bfs(i, j, maps));        
             }
         }
         
+        // 갈 수 있는 섬이 없으면 -1 추가 있으면 정렬
         if(answer.size() == 0) answer.add(-1);
-        answer.sort(Comparator.naturalOrder());
+        else answer.sort(Comparator.naturalOrder());
+        
+        // List -> int[]
         return answer.stream().mapToInt(i->i).toArray();
     }
     
+    // bfs를 위한 static class
     static class Data {
         int y;
         int x; 
@@ -35,8 +40,11 @@ class Solution {
             this.food = food;
         }
     }
+    
+    // 하나의 섬에 있는 모든 식량 총양을 구하기 위한 bfs 메서드
     private int bfs(int y, int x, String[] maps) {
         Queue<Data> q = new ArrayDeque<>();
+        
         int totalFood = maps[y].charAt(x) - '0';
         visited[y][x] = true;
         q.offer(new Data(y, x, totalFood));
