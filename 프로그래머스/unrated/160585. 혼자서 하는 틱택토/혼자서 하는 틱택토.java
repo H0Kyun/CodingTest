@@ -1,40 +1,33 @@
 class Solution {
     public int solution(String[] board) {
         boolean oWin = false, xWin = false;
-        int oCount = 0 , xCount = 0;
+        int OminusX = 0;
         for(int i = 0; i < board.length; i++) {
+            int oColumnCount = 0, xColumnCount = 0;
+            
             for(int j = 0; j < board[0].length(); j++) {
-                if(board[i].charAt(j) == 'O') {
-                    oCount++;     
-                } else if(board[i].charAt(j) == 'X') {
-                    xCount++;
+                // 열 검사
+                if(board[j].charAt(i) == 'O') {
+                    oColumnCount++;
+                    OminusX++; 
+                } else if(board[j].charAt(i) == 'X') {
+                    xColumnCount++;
+                    OminusX--;
                 }  
             }
-        }
-        
-        for(int i = 0; i < board.length; i++) {   
+            
+            if(oColumnCount == 3) oWin = true;
+            if(xColumnCount == 3) xWin = true;
+            
+            // 행 검사
             if(board[i].equals("OOO")) 
                 oWin = true;
             
             if(board[i].equals("XXX")) 
                 xWin = true;
         }
-        
-        for(int i = 0; i < board.length; i++) {
-            int o = 0, x = 0;
-            for(int j = 0; j < board[0].length(); j++) {
-                if(board[j].charAt(i) == 'O') {
-                    o++;
-                } else if(board[j].charAt(i) == 'X') {
-                    x++;
-                }  
-            }
-            if(o == 3) oWin = true;
-            if(x == 3) xWin = true;
 
-        }
-
-        
+        // 대각선
         if((board[0].charAt(0) == 'O' && board[1].charAt(1) == 'O' && board[2].charAt(2) == 'O')
           || (board[0].charAt(2) == 'O' && board[1].charAt(1) == 'O' && board[2].charAt(0) == 'O'))
             oWin = true;
@@ -44,9 +37,9 @@ class Solution {
             xWin = true;
         
         
-        if(oWin && !xWin && oCount - xCount == 1) return 1;
-        else if(!oWin && xWin && oCount - xCount == 0) return 1;
-        else if(!oWin && !xWin && (oCount - xCount == 1 || oCount - xCount == 0)) return 1;
+        if(oWin && !xWin && OminusX == 1) return 1;
+        else if(!oWin && xWin && OminusX == 0) return 1;
+        else if(!oWin && !xWin && (OminusX == 1 || OminusX == 0)) return 1;
         return 0;
     }
 }
