@@ -2,10 +2,6 @@ class Solution {
     int answer;
     public int solution(int[] picks, String[] minerals) {
         answer = Integer.MAX_VALUE;
-        // 다이아몬드로 캐기 // 다, 철, 돌 ....
-        // 철로 캐기
-        // 돌로 캐기
-        
         for(int i = 0; i < picks.length; i++) {
             if(picks[i] == 0) continue;
             dfs(i, picks, minerals, 0, 0);
@@ -16,31 +12,26 @@ class Solution {
     }
     
     private void dfs(int pickaxes, int[] picks, String[] minerals, int count, int tiredness) {
-        
+        // 사용한 곡괭이 제거
         picks[pickaxes]--;
-        int dPoint = 0;
-        int iPoint = 0;
-        int sPoint = 0;
-
+        
+        int dPoint = 1;
+        int iPoint = 1;
+        int sPoint = 1;
+        
+        // 곡괭이 별로 피로도 설정
         switch(pickaxes) {
-            case 0:
-                dPoint = 1;
-                iPoint = 1;
-                sPoint = 1;
-                break;
             case 1:
                 dPoint = 5;
-                iPoint = 1;
-                sPoint = 1;
                 break;
-            default:
+            case 2:
                 dPoint = 25;
                 iPoint = 5;
-                sPoint = 1;
                 break;
         }
-        int length = count + 5;
-        if(count + 5 > minerals.length) length = minerals.length;
+        
+        // 5개의 광물을 캘 때 피로도 계산
+        int length = count + 5 > minerals.length ? minerals.length : count + 5;
         for(int i = count; i < length; i++) {
             if(minerals[i].equals("diamond")) {
                 tiredness += dPoint;
@@ -53,11 +44,12 @@ class Solution {
         
         if(tiredness >= answer) return;
         
-        if((picks[0] == 0 && picks[1] == 0 && picks[2] == 0) || (count + 5 >= minerals.length)) {
+        if((picks[0] == 0 && picks[1] == 0 && picks[2] == 0) || (length >= minerals.length)) {
             answer = Math.min(answer, tiredness);
             return;
         }
         
+        // 다음 곡괭이 선정
         for(int i = 0; i < picks.length; i++) {
             if(picks[i] == 0) continue;
             dfs(i, picks, minerals, count + 5, tiredness);
