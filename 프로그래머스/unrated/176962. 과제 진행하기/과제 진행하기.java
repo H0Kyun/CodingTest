@@ -38,9 +38,10 @@ class Solution {
                         remainTime -= stack.peek().getPlayTime();
                         answer[startIndex++] = stack.pop().getSubjectName();    
                     } else {
-                        RemainSubject remainSubject = stack.pop();
-                        remainSubject.minusMin(remainTime);
-                        stack.push(remainSubject);
+                        // RemainSubject remainSubject = stack.pop();
+                        // remainSubject.minusMin(remainTime);
+                        // stack.push(remainSubject);
+                        stack.peek().minusMin(remainTime);
                         break;
                     }
                 }
