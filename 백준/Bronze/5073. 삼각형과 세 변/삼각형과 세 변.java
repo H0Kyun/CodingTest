@@ -3,22 +3,29 @@ import java.util.Scanner;
 class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        
         while(true) {
-            int firstSide = sc.nextInt();
-            int secondSide = sc.nextInt();
-            int thirdSide = sc.nextInt();
+            int[] sides = new int[3];
+            int total = 0;
+            int longest = 0;
+            int shortest = 1001;
             
-            if(firstSide == 0 && secondSide == 0 && thirdSide == 0)
-                return;
+            for(int i = 0; i < 3; i++) {
+                sides[i] = sc.nextInt();
+                total += sides[i];
+                longest = Math.max(longest, sides[i]);
+                shortest = Math.min(shortest, sides[i]);
+            }
             
-            if(firstSide == secondSide && secondSide == thirdSide) {
+            if(total == 0)
+                break;
+            
+            if(sides[0] == sides[1] && sides[1] == sides[2]) {
                 System.out.println("Equilateral");
                 continue;
             }
             
-            int longest = Math.max(firstSide, Math.max(secondSide, thirdSide));
-            int shortest = Math.min(firstSide, Math.min(secondSide, thirdSide));
-            int middle = firstSide + secondSide+ thirdSide - (longest + shortest);
+            int middle = total - (longest + shortest);
             
             if(longest >= shortest + middle) {
                 System.out.println("Invalid");
@@ -32,5 +39,6 @@ class Main {
             }
             
         }
+        sc.close();
     }
 }
