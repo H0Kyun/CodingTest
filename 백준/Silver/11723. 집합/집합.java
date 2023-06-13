@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 class Main {
@@ -5,11 +6,10 @@ class Main {
         Scanner sc = new Scanner(System.in);
         int numberOfOrder = sc.nextInt();
         sc.nextLine();
-
-        // 아래 숫자와 비트 연산을 통해 숫자 존재 여부를 확인한다.
-        int isNumberExist = 0; // 숫자 존재여부를 확인하는 숫자
-
+        
         StringBuilder sb = new StringBuilder();
+
+        boolean[] isNumberExist = new boolean[21];
 
         for(int i = 0; i < numberOfOrder; i++) {
             // 명령어와 숫자를 입력받는다.
@@ -18,31 +18,28 @@ class Main {
             // 명령어 종류 별로 작업을 수행한다.
             switch (commandAndNumber[0]) {
                 case "add":
-                    isNumberExist |= 1 << Integer.parseInt(commandAndNumber[1]);
+                    isNumberExist[Integer.parseInt(commandAndNumber[1])] = true;
                     break;
                 case "remove":
-                    isNumberExist -= isNumberExist & (1 << Integer.parseInt(commandAndNumber[1]));
+                    isNumberExist[Integer.parseInt(commandAndNumber[1])] = false;
                     break;
                 case "check":
-                    sb
-                        .append(
-                            (isNumberExist & (1 << Integer.parseInt(commandAndNumber[1]))) > 0 ? 1 : 0
-                        )
-                        .append("\n");
-                     
+                    sb.append(isNumberExist[Integer.parseInt(commandAndNumber[1])] ? 1: 0).append("\n");
+                   
                     break;
                 case "toggle":
-                    isNumberExist ^= (1 << Integer.parseInt(commandAndNumber[1]));
+                    int number = Integer.parseInt(commandAndNumber[1]);
+                    isNumberExist[number] = !isNumberExist[number];
                     break;
                 case "all":
-                    isNumberExist = 2097151;
+                    Arrays.fill(isNumberExist, true);
                     break;
                 case "empty":
-                    isNumberExist = 0;
+                    isNumberExist = new boolean[21];
                     break;
             }
-        
         }
+    
         System.out.println(sb.toString());
         sc.close();
     }
