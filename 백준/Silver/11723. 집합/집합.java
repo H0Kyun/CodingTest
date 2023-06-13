@@ -9,7 +9,7 @@ class Main {
         
         StringBuilder sb = new StringBuilder();
 
-        boolean[] isNumberExist = new boolean[21];
+        boolean[] isNumberExist = new boolean[21]; // 집합에 숫자가 존재하는지 확인하는 배열
 
         for(int i = 0; i < numberOfOrder; i++) {
             // 명령어와 숫자를 입력받는다.
@@ -24,8 +24,9 @@ class Main {
                     isNumberExist[Integer.parseInt(commandAndNumber[1])] = false;
                     break;
                 case "check":
-                    sb.append(isNumberExist[Integer.parseInt(commandAndNumber[1])] ? 1: 0).append("\n");
-                   
+                    sb
+                        .append(isNumberExist[Integer.parseInt(commandAndNumber[1])] ? 1: 0)
+                        .append("\n");
                     break;
                 case "toggle":
                     int number = Integer.parseInt(commandAndNumber[1]);
@@ -35,7 +36,7 @@ class Main {
                     Arrays.fill(isNumberExist, true);
                     break;
                 case "empty":
-                    isNumberExist = new boolean[21];
+                    Arrays.fill(isNumberExist, false);
                     break;
             }
         }
