@@ -2,6 +2,7 @@ import java.util.LinkedList;
 import java.util.Scanner;
 
 public class Main {
+    // 벨트의 칸 별 상태를 나타내는 클래스
     static class Slot {
         int endurance;
         boolean isRobotExist;
@@ -28,18 +29,21 @@ public class Main {
            slots.add(new Slot(sc.nextInt()));
         }
         
-        int level = 0;
+        int step = 0; // 단계
         while( enduranceZeroConveyorBeltThreshold > 0) {
-            level ++;
+            ++step;
             
-            slots.addFirst(slots.pollLast());
+            slots.addFirst(slots.pollLast()); // 벨트를 한칸 돌린다.
+            
+            // 내리는 칸에 로봇이 있으면 제거한다.
             slots.get(numberOfConveyorBeltSlots - 1).isRobotExist = false;
+            
+            // 로봇 이동
             for(int i = numberOfConveyorBeltSlots - 2; i >= 0; i--) {
                 if(slots.get(i).isRobotExist) {
                     if (!slots.get(i + 1).isRobotExist && slots.get(i + 1).endurance > 0) {
                         slots.get(i).isRobotExist = false;
-                        slots.get(i + 1).isRobotExist 
-                            = i + 1 == numberOfConveyorBeltSlots - 1 ? false : true;
+                        slots.get(i + 1).isRobotExist = true;
                         slots.get(i + 1).endurance -= 1;
                         
                         if(slots.get(i + 1).endurance == 0) {
@@ -49,6 +53,10 @@ public class Main {
                 }
             }
             
+            // 내리는 칸에 로봇이 있으면 제거한다.
+            slots.get(numberOfConveyorBeltSlots - 1).isRobotExist = false;
+            
+            // 올리는 칸에 로봇을 올린다.
             if(slots.getFirst().endurance > 0) {
                 slots.getFirst().endurance -= 1;
                 slots.getFirst().isRobotExist = true;
@@ -59,6 +67,6 @@ public class Main {
             }
         }
         
-        System.out.println(level);
+        System.out.println(step);
     }
 } 
