@@ -12,8 +12,9 @@ public class Main {
 
         int numberOfSeat = 0;
 
-        numberOfSeat += W / (M + 1);
-        numberOfSeat += W % (M + 1) > 0 ? 1 : 0;
+        // 가로 최대 수
+        numberOfSeat += W / (M + 1) + (W % (M + 1) > 0 ? 1 : 0);
+        // 세로 최대 수
         numberOfSeat *= H / (N + 1) + (H % (N + 1) > 0 ? 1 : 0);
 
         System.out.print(numberOfSeat);
