@@ -10,6 +10,8 @@ public class Main {
         int[] studentNumber = new int[N];
         int[] dp = new int[N];
         int max = 0;
+        /* 최장증가수열을 찾고 해당 수열을 제외한 나머지 수들을 순서에 맞게 변경하면
+         * 정답을 찾을 수 있다. */ 
         for(int i = 0; i < N; i++) {
             studentNumber[i] = sc.nextInt();
             sc.nextLine();
@@ -21,6 +23,7 @@ public class Main {
                 }
             }
             
+            // 최장증가수열의 최댓값을 저장
             if(dp[i] > max) {
                 max = dp[i];
             }
