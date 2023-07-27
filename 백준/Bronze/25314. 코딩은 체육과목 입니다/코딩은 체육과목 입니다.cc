@@ -14,11 +14,6 @@ int main()
         dataType = "long " + dataType;
     }
     
-    if (N % 4 > 0)
-    {
-        dataType = "long " + dataType;
-    }
-    
     cout << dataType;
     
     return 0;
