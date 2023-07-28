@@ -41,6 +41,7 @@ public class Main {
         int[] dist = new int[N];
         Arrays.fill(dist, Integer.MAX_VALUE);
         dist[startIndex] = 0;
+        // 힙을 사용해 실행시간을 N*N에서 N*logN으로 줄여야 해결할 수 있다.
         PriorityQueue<Node> pq = new PriorityQueue<Node>(new Comparator<Node>() {
 
 			@Override
