@@ -5,6 +5,7 @@ import java.io.*;
 public class Main {
 
     public static void main(String args[]) throws IOException {
+        // BufferedReader와 BufferedWriter 사용이 필수이다. 안 그러면 시간초과 발생
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
