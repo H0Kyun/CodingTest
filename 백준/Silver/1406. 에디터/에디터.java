@@ -1,9 +1,5 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.util.*;
+import java.io.*;
 
 
 public class Main {
@@ -13,40 +9,49 @@ public class Main {
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
         String initStr = br.readLine();
-        Stack<Character> cursorLeft = new Stack<>();
-        Stack<Character> cursorRight = new Stack<>();
+        Deque<Character> cursorLeft = new ArrayDeque<>();
+        Deque<Character> cursorRight = new ArrayDeque<>();
         int commandCount = Integer.parseInt(br.readLine());
 
-
         for(int i = 0; i < initStr.length(); ++i) {
-            cursorLeft.push(initStr.charAt(i));
+            cursorLeft.add(initStr.charAt(i));
         }
 
         for (int i = 0; i < commandCount; ++i) {
             String command = br.readLine();
 
-            if(command.equals("L")) {
-                if(!cursorLeft.isEmpty()) {
-                    cursorRight.push(cursorLeft.pop());
-                }
-            } else if(command.equals("D")) {
-                if(!cursorRight.isEmpty()) {
-                    cursorLeft.push(cursorRight.pop());
-                }
-            } else if(command.equals("B")) {
-                if(!cursorLeft.isEmpty()) {
-                    cursorLeft.pop();
-                }
-            } else {
-                cursorLeft.push(command.charAt(2));
+            switch(command.charAt(0)) {
+                case 'L':
+                    if(cursorLeft.isEmpty()) {
+                        break;
+                    }
+                    cursorRight.addFirst(cursorLeft.removeLast());
+                    break;
+                case 'D':
+                    if(cursorRight.isEmpty()) {
+                        break;
+                    }
+                    cursorLeft.addLast(cursorRight.removeFirst());
+                    break;
+                case 'B':
+                    if(cursorLeft.isEmpty()) {
+                        break;
+                    }
+                    cursorLeft.removeLast();
+                    break;
+                case 'P':
+                    cursorLeft.addLast(command.charAt(2));
+                    break;
+                default:
+                    break;
             }
         }
 
         while(!cursorLeft.isEmpty()) {
-            cursorRight.push(cursorLeft.pop());
+            bw.write(cursorLeft.pollFirst());
         }
         while(!cursorRight.isEmpty()) {
-            bw.write(cursorRight.pop());
+            bw.write(cursorRight.pollFirst());
         }
 
         br.close();
@@ -55,5 +60,3 @@ public class Main {
     }
 
 }
-
-
