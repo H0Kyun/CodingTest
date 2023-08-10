@@ -1,4 +1,5 @@
 import java.util.*;
+import java.io.*;
 
 public class Main {
     public static class ShortCut {
@@ -30,11 +31,12 @@ public class Main {
     	
     }
     
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
-        int D = sc.nextInt();
-        sc.nextLine();
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+        int N = Integer.parseInt(st.nextToken());
+        int D = Integer.parseInt(st.nextToken());
+        //sc.nextLine();
         Map<Integer, Integer> nodeInfo = new HashMap<>();
         Map<Integer, Integer> nodeKey = new HashMap<>();
         
@@ -42,11 +44,11 @@ public class Main {
         List<ArrayList<Node>> graph = new ArrayList<>();
         
         for(int i = 0; i < N; ++i) {
-            
-            int start = sc.nextInt();
-            int end = sc.nextInt();
-            int distance = sc.nextInt();
-            sc.nextLine();
+            st = new StringTokenizer(br.readLine(), " ");
+            int start = Integer.parseInt(st.nextToken());
+            int end = Integer.parseInt(st.nextToken());
+            int distance = Integer.parseInt(st.nextToken());
+            //sc.nextLine();
             if(end <= D && end - start > distance) {
                 shortcutList.add(new ShortCut(start, end, distance));        
             }
@@ -129,7 +131,7 @@ public class Main {
         	System.out.println(dist[1]);
         }
         
-        sc.close();
+        br.close();
     }
     
     private static int[] dijkstra(int size, List<ArrayList<Node>> graph, int startIndex) {
