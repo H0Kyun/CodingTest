@@ -10,7 +10,7 @@ public class Main {
         // N일 동안 일일 방문자 수
         int[] dailyVisitors = new int[N];
         
-        // 첫쨋날을 기준으로 X일 방문자 수
+        // 첫날을 기준으로 X일 방문자 수
         dailyVisitors[0] = sc.nextInt();
         long maxNumberOfVisitor = dailyVisitors[0];
         for(int i = 1; i < X; ++i) {
