@@ -1,58 +1,57 @@
 import java.util.Queue;
 import java.util.ArrayDeque;
 
-class Solution {
-    public static class Position {
+class Position {
         public int x;
         public int y;
-        public int count;
 
-        public Position(int x, int y, int count) {
+        public Position(int x, int y) {
             this.x = x;
             this.y = y;
-            this.count = count;
         }
     }
+
+class Solution {
     
     public int solution(int[][] maps) {
         int answer = -1;
         
-        if (maps[0][0] == 0) {
-            return answer;
-        }
-        
-        int n = maps.length;
-        int m = maps[0].length;
+        int n = maps.length - 1;
+        int m = maps[0].length - 1;
         
         Queue<Position> q = new ArrayDeque<Position>();
-        q.add(new Position(0, 0, 1));
+        q.add(new Position(0, 0));
         maps[0][0] = 0;
+        
+        int depth = 1;
         
         while(!q.isEmpty()) {
             int size = q.size();
-            while (--size >= 0) {
+            
+            while(--size >= 0) {
                 Position current = q.poll();
-                
-                if (current.y == n -1 && current.x == m - 1) {
-                    answer = current.count;
+
+                if (current.y == n && current.x == m) {
+                    answer = depth;
                     break;
                 }
 
-                int[] dx = { 0, 1, -1, 0};
-                int[] dy = { 1, 0, 0, -1};
+                int[] dx = { 0, -1, 0, 1};
+                int[] dy = { 1, 0, -1, 0};
 
                 for(int i = 0; i  < 4; ++i) {
                     int nx = current.x + dx[i];
                     int ny = current.y + dy[i];
 
-                    if (ny < 0 || nx < 0 || ny >= n || nx >= m || maps[ny][nx] == 0) {
+                    if (ny < 0 || nx < 0 || ny > n || nx > m || maps[ny][nx] == 0) {
                         continue;
                     }
 
                     maps[ny][nx] = 0;
-                    q.add(new Position(nx, ny, current.count + 1));
+                    q.add(new Position(nx, ny));
                 }
             }
+            ++depth;
         }
         
         return answer;
