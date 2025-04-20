@@ -62,9 +62,8 @@ class Solution {
             onRequestPQ.offer(new Job(i, jobs[i][0], jobs[i][1]));
         }
         
-        pq.offer(onRequestPQ.poll());
         int answer = 0;
-        int startTime = pq.peek().getOnRequest();
+        int startTime = 0;
         
         while(!(pq.isEmpty() && onRequestPQ.isEmpty())) {
             if (!pq.isEmpty()) {
@@ -78,7 +77,7 @@ class Solution {
                 while(!onRequestPQ.isEmpty() && onRequestPQ.peek().getOnRequest() <= returnTime) {
                     pq.offer(onRequestPQ.poll());
                 }
-            } else if (!onRequestPQ.isEmpty()) {
+            } else {
                 pq.offer(onRequestPQ.poll());
                 startTime = pq.peek().getOnRequest();
             }
