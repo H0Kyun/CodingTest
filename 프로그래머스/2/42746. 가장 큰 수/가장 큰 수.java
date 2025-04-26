@@ -3,7 +3,7 @@ import java.util.*;
 class Solution {
     public String solution(int[] numbers) {
         PriorityQueue<String> pq = new PriorityQueue<String>((str1, str2) -> {
-            return (Integer.parseInt(str1.concat(str2)) - Integer.parseInt(str2.concat(str1))) * -1;
+            return -(Integer.parseInt(str1 + str2) - Integer.parseInt(str2 + str1));
         });
         
         for (int number : numbers) {
