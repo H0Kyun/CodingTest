@@ -10,16 +10,16 @@ class Solution {
             pq.offer(Integer.toString(number));
         }
         
-        if (pq.peek().equals("0")) {
-            return "0";
-        } else {
-            String answer = "";
+        StringBuilder answer = new StringBuilder();
             
-            while(!pq.isEmpty()) {
-                answer += pq.poll();   
-            }
-            
-            return answer;   
+        while(!pq.isEmpty()) {
+            answer.append(pq.poll());
         }
+        
+        if (answer.toString().charAt(0) == '0') {
+            return "0";
+        }
+
+        return answer.toString();
     }
 }
