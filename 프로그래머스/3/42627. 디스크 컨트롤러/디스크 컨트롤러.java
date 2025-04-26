@@ -1,27 +1,38 @@
 import java.util.*;
 
 class Job {
-    private int onRequest;
+    static Comparator<Job> byDuration = Comparator
+        .comparingInt(Job::getDuration)
+        .thenComparingInt(Job::getRequestTime)
+        .thenComparingInt(Job::getId);
+    
+    static Comparator<Job> byRequestTime = Comparator
+        .comparingInt(Job::getRequestTime)
+        .thenComparingInt(Job::getDuration)
+        .thenComparingInt(Job::getId);  
+    
+    
     private int id;
-    private int timeRequired;
+    private int requestTime;
+    private int duration;
     private int startTime;
     
-    Job(int id, int onRequest, int timeRequired) {
+    Job(int id, int requestTime, int duration) {
         this.id = id;
-        this.onRequest = onRequest;
-        this.timeRequired = timeRequired;
-    }
-    
-    int getOnRequest() {
-        return this.onRequest;
-    }
-    
-    int getTimeRequired() {
-        return this.timeRequired;
+        this.requestTime = requestTime;
+        this.duration = duration;
     }
     
     int getId() {
         return this.id;
+    }
+    
+    int getRequestTime() {
+        return this.requestTime;
+    }
+    
+    int getDuration() {
+        return this.duration;
     }
     
     int getStartTime() {
@@ -35,51 +46,30 @@ class Job {
 
 class Solution {
     public int solution(int[][] jobs) {
-        PriorityQueue<Job> pq = new PriorityQueue<Job>((job1, job2) -> {
-            if (job1.getTimeRequired() - job2.getTimeRequired() == 0) {
-                if (job1.getOnRequest() - job2.getOnRequest() == 0) {
-                    return job1.getId() - job2.getId();
-                } else {
-                    return job1.getOnRequest() - job2.getOnRequest();
-                }
-            } else {
-                return job1.getTimeRequired() - job2.getTimeRequired();
-            }
-        });
-        PriorityQueue<Job> onRequestPQ = new PriorityQueue<Job>((job1, job2) -> {
-            if (job1.getOnRequest() - job2.getOnRequest() == 0) {
-                if (job1.getTimeRequired() - job2.getTimeRequired() == 0) {
-                    return job1.getId() - job2.getId();
-                } else {
-                    return job1.getTimeRequired() - job2.getTimeRequired();
-                }
-            } else {
-                return job1.getOnRequest() - job2.getOnRequest();
-            }
-        });
+        PriorityQueue<Job> scheduledQueue = new PriorityQueue<Job>(Job.byDuration);
+        PriorityQueue<Job> waitingQueue = new PriorityQueue<Job>(Job.byRequestTime);
         
         for (int i = 0; i < jobs.length; ++i) {
-            onRequestPQ.offer(new Job(i, jobs[i][0], jobs[i][1]));
+            waitingQueue.offer(new Job(i, jobs[i][0], jobs[i][1]));
         }
         
         int answer = 0;
-        int startTime = 0;
+        int currentTime = 0;
         
-        while(!(pq.isEmpty() && onRequestPQ.isEmpty())) {
-            if (!pq.isEmpty()) {
-                Job currentJob = pq.poll();
-                currentJob.setStartTime(startTime);
-                int returnTime = currentJob.getStartTime() + currentJob.getTimeRequired();
+        while(!(scheduledQueue.isEmpty() && waitingQueue.isEmpty())) {
+            while(!waitingQueue.isEmpty() && waitingQueue.peek().getRequestTime() <= currentTime) {
+                scheduledQueue.offer(waitingQueue.poll());
+            }
+            
+            if (!scheduledQueue.isEmpty()) {
+                Job job = scheduledQueue.poll();
+                job.setStartTime(currentTime);
+                int finishTime = job.getStartTime() + job.getDuration();
                 
-                answer += returnTime - currentJob.getOnRequest();
-                startTime = returnTime;
-                
-                while(!onRequestPQ.isEmpty() && onRequestPQ.peek().getOnRequest() <= returnTime) {
-                    pq.offer(onRequestPQ.poll());
-                }
+                answer += finishTime - job.getRequestTime();
+                currentTime = finishTime;
             } else {
-                pq.offer(onRequestPQ.poll());
-                startTime = pq.peek().getOnRequest();
+                currentTime = waitingQueue.peek().getRequestTime();
             }
         }
         
