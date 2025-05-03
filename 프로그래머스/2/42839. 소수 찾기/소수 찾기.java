@@ -3,28 +3,28 @@ import java.util.*;
 class Solution {
     public int solution(String numbers) {
         Set<Integer> primeNumbers = new HashSet();
-        for(int i = 0; i < numbers.length(); ++i) {
-            dfs(i, new boolean[numbers.length()], new StringBuilder().append(numbers.charAt(i)), numbers, primeNumbers);
-        }
+        
+        permutation(new StringBuilder(), new StringBuilder(numbers), primeNumbers);
+        
         
         return primeNumbers.size();
     }
     
-    private void dfs(int index, boolean[] visited, StringBuilder currentNumber, String numbers, Set<Integer> primeNumbers) {
+    private void permutation(StringBuilder currentNumber, StringBuilder numbers, Set<Integer> primeNumbers) {
         
-        visited[index] = true;
-        int number = Integer.parseInt(currentNumber.toString());
+        if (currentNumber.length() > 0) {
+            int number = Integer.parseInt(currentNumber.toString());
         
-        if (isPrimeNumber(number)) {
-            primeNumbers.add(number);
+            if (isPrimeNumber(number)) {
+                primeNumbers.add(number);
+            }
         }
         
         for(int i = 0; i < numbers.length(); ++i) {
-            if (visited[i]) {
-                continue;
-            }
+            StringBuilder nextNumber = new StringBuilder(currentNumber.toString()).append(numbers.charAt(i));
+            StringBuilder remainingNumbers = new StringBuilder(numbers.toString()).deleteCharAt(i);
             
-            dfs(i, Arrays.copyOf(visited, visited.length), new StringBuilder(currentNumber.toString()).append(numbers.charAt(i)), numbers, primeNumbers);
+            permutation(nextNumber, remainingNumbers, primeNumbers);
         }
     }
     
