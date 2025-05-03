@@ -6,7 +6,6 @@ class Solution {
         
         permutation(new StringBuilder(), new StringBuilder(numbers), primeNumbers);
         
-        
         return primeNumbers.size();
     }
     
