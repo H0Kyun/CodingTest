@@ -32,7 +32,7 @@ class Solution {
             return false;
         }
         
-        for (int i = 3; i <= (int)Math.sqrt(number); i += 2) {
+        for (int i = 3; i * i <= number; i += 2) {
             if (number % i == 0) {
                 return false;
             }
