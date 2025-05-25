@@ -1,11 +1,11 @@
 import java.util.*;
 
+// 출처: https://titathecheese.tistory.com/90
 class Solution {
     public int solution(int n, int[][] costs) {
         Arrays.sort(costs, (c1, c2) -> c1[2] - c2[2]);
         
-        List<Integer> parent = new ArrayList<Integer>(Collections.nCopies(n, null));
-        Collections.fill(parent, -1);
+        List<Integer> parent = new ArrayList<Integer>(Collections.nCopies(n, Integer.valueOf(-1)));
         
         int answer = 0;
         
@@ -13,7 +13,7 @@ class Solution {
             Integer x = this.find(parent, cost[0]);
             Integer y = this.find(parent, cost[1]);
 
-            if (x != y) {
+            if (x.compareTo(y) != 0) {
                 unionSet(parent, x, y);
                 answer += cost[2];
             }
