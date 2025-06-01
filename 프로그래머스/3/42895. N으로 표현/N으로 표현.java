@@ -6,11 +6,7 @@ class Solution {
             return 1;
         }
         
-        List<Set<Integer>> numbers = new ArrayList<Set<Integer>>();
-        numbers.add(new HashSet<Integer>());
-        numbers.get(0).add(N);
-        numbers.add(new HashSet<Integer>());
-        numbers.get(1).add(N);
+        List<Set<Integer>> numbers = init(N);
 
         for (int i = 2; i <= 8; ++i) {
             numbers.add(new HashSet<Integer>());
@@ -18,11 +14,14 @@ class Solution {
             Set<Integer> currentNumbers = numbers.get(i);
             currentNumbers.add(this.createConsecutiveEqualNumber(i, N));
             
+            // 아래 처럼 각 연산 조합으로 나오는 수를 모두 구하기 위해 반복문 수행
+            // 1 | 2   | 3         | 4
+            // 1 | 1 1 | 2 1 / 1 2 | 3 1 / 1 3 / 2 2
             for (int j = 1; j < i; ++j) {
                 Set<Integer> x = numbers.get(j);
                 Set<Integer> y = numbers.get(i - j);
                 
-                calculate(x, y, currentNumbers);
+                this.calculate(x, y, currentNumbers);
             }
             
             
@@ -34,7 +33,16 @@ class Solution {
         return -1;
     }
     
-    public void calculate(Set<Integer> x, Set<Integer> y, Set<Integer> currentNumbers) {
+    private List<Set<Integer>> init(int N) {
+        List<Set<Integer>> numbers = new ArrayList<Set<Integer>>();
+        numbers.add(new HashSet<Integer>());
+        numbers.add(new HashSet<Integer>());
+        numbers.get(1).add(N);
+        
+        return numbers;
+    }
+    
+    private void calculate(Set<Integer> x, Set<Integer> y, Set<Integer> currentNumbers) {
         for(int xValue : x) {
             for (int yValue : y) {
                 currentNumbers.add(xValue + yValue);
@@ -44,46 +52,9 @@ class Solution {
                     currentNumbers.add(xValue - yValue);
                 }
 
-                if (yValue - xValue > 0) {
-                    currentNumbers.add(yValue - xValue);   
-                }
-
                 if (xValue != 0) {
                     currentNumbers.add(yValue / xValue);
                 }
-
-                if (yValue != 0) {
-                    currentNumbers.add(xValue / yValue);
-                }
-            }
-        }
-    }
-    
-    public void calculate(List<Set<Integer>> numbers, int index, int N) {
-        Set<Integer> previousNumbers = numbers.get(index - 1);
-        Set<Integer> currentNumbers = numbers.get(index);
-        
-        currentNumbers.add(this.createConsecutiveEqualNumber(index, N));
-        
-        Iterator<Integer> iter = previousNumbers.iterator();
-
-        while(iter.hasNext()) {
-            int temp = iter.next();
-            
-            currentNumbers.add(temp + N);
-            currentNumbers.add(temp * N);
-            currentNumbers.add(temp / N);
-            
-            if (temp - N > 0) {
-                currentNumbers.add(temp - N);
-            }
-            
-            if (N - temp > 0) {
-                currentNumbers.add(N - temp);   
-            }
-            
-            if (temp != 0) {
-                currentNumbers.add(N / temp);
             }
         }
     }
