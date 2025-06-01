@@ -19,7 +19,8 @@ class Solution {
                     continue;
                 }
                 
-                int temp = 0;
+                int pathCount = 0;
+                
                 for(int d = 0; d < directionX.length; ++d) {
                     int nx = i - directionX[d];
                     int ny = j - directionY[d];
@@ -28,10 +29,10 @@ class Solution {
                         continue;
                     }
 
-                    temp += board[ny][nx];
+                    pathCount += board[ny][nx];
                 }
                 
-                board[j][i] += temp % 1000000007;
+                board[j][i] += pathCount % 1000000007;
             }
         }
 
