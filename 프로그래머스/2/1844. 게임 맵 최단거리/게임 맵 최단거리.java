@@ -23,6 +23,7 @@ class Solution {
         q.add(new Position(0, 0));
         maps[0][0] = 0;
         
+        // 몇 번째 칸을 탐색 중인지 depth로 확인한다.
         int depth = 1;
         
         while(!q.isEmpty()) {
@@ -51,6 +52,7 @@ class Solution {
                     q.add(new Position(nx, ny));
                 }
             }
+            
             ++depth;
         }
         
