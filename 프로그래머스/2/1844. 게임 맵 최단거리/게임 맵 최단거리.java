@@ -2,14 +2,14 @@ import java.util.Queue;
 import java.util.ArrayDeque;
 
 class Position {
-        public int x;
-        public int y;
+    public int x;
+    public int y;
 
-        public Position(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
+    public Position(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
+}
 
 class Solution {
     
@@ -34,6 +34,7 @@ class Solution {
 
                 if (current.y == n && current.x == m) {
                     answer = depth;
+                    q.clear();
                     break;
                 }
 
