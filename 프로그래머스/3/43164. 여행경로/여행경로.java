@@ -4,6 +4,7 @@ class Solution {
     public String[] solution(String[][] tickets) {
         // 공항명, 연결된 노드 저장 Map<String, LinkedList<String>>
         Map<String, List<String>> graph = new HashMap();
+        
         for (String[] ticket : tickets) {
             if (!graph.containsKey(ticket[0])) {
                 List<String> list = new LinkedList();
@@ -19,37 +20,34 @@ class Solution {
             }
         }
         
-        for (Map.Entry<String, List<String>> entry : graph.entrySet()) {
-            System.out.println(entry.getKey() + " " + entry.getValue());
-        }
-     
-        
         // 처음은 ICN 과 연결된 노드 탐색 탐색
         List<String> routes = dfs("ICN", graph, new ArrayList<String>());
         
-        String[] answer = new String[routes.size()];
-        
-        return routes.toArray(answer);
+        return routes.toArray(new String[routes.size()]);
     }
     
     private List<String> dfs(String departure, Map<String, List<String>> graph, List<String> visited) {
+        // 방문한 공항 저장
         visited.add(departure);
         
         if (!graph.containsKey(departure)) {
             return visited;
         }
         
-        List<String> nodeList = graph.get(departure);
-        
         List<String> routes = visited;
         
-        for (String arrival : nodeList) {
+        List<String> nodeList = graph.get(departure);
+        
+        for (int i = 0; i < nodeList.size(); ++i) {
+            String arrival = nodeList.get(i);
+            
             Map<String, List<String>> copiedGraph = new HashMap();
+            // 깊은 복사
             for (Map.Entry<String, List<String>> entry : graph.entrySet()) {
                 copiedGraph.put(entry.getKey(), new LinkedList(entry.getValue()));
             }
             
-            copiedGraph.get(departure).remove(arrival);
+            copiedGraph.get(departure).remove(i);
             
             List<String> newVisited = dfs(arrival, copiedGraph, new ArrayList(visited));
             
