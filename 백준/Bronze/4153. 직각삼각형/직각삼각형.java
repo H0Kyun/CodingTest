@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
+import java.util.Arrays;
 
 class Main {
     public static void main(String args[]) throws Exception {
@@ -8,29 +9,24 @@ class Main {
         
         while(true) {
             StringTokenizer st = new StringTokenizer(br.readLine(), " ");
-            int a = Integer.parseInt(st.nextToken());
-            int b = Integer.parseInt(st.nextToken());
-            int c = Integer.parseInt(st.nextToken());
+            int[] sides = new int[3];
+            boolean isBreak = true;
             
-            if (a == 0 && b == 0 && c == 0) {
+            for (int i = 0; i < 3; ++i) {
+                sides[i] = Integer.parseInt(st.nextToken());
+                
+                if (sides[i] != 0) {
+                    isBreak = false;
+                }
+            }
+            
+            if (isBreak) {
                 break;
             }
             
-            int hypotenuse = Math.max(a, Math.max(b, c));
-            int base = 0;
-            int height = 0;
-            if (hypotenuse == c) {
-                base = a;
-                height = b;
-            } else if (hypotenuse == b) {
-                base = a;
-                height = c;
-            } else {
-                base = b;
-                height = c;
-            }
+            Arrays.sort(sides);
             
-            if (base * base + height * height == hypotenuse * hypotenuse) {
+            if (sides[0] * sides[0] + sides[1] * sides[1] == sides[2] * sides[2]) {
                 System.out.println("right");
             } else {
                 System.out.println("wrong");                
