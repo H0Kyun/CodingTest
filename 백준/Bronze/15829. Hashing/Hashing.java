@@ -9,13 +9,16 @@ public class Main {
         int stringLength = Integer.parseInt(br.readLine());
         String str = br.readLine();
         long answer = 0;
+        long pow = 1;
+        long mod = 1234567891;
         
         for (int i = 0; i < stringLength; ++i) {
-            long number = (str.charAt(i) - 'a') + 1;
+            long number = ((((str.charAt(i) - 'a') + 1) % 1234567891) *  pow) % mod;
+            pow = (pow * 31) % 1234567891;
             
-            answer += number * (long)Math.pow(31, i);
-            answer %= 1234567891;
+            answer += number;
         }
+        answer %= mod;
         
         System.out.println(answer);
     }
