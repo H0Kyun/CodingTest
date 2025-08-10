@@ -5,27 +5,28 @@ public class Main {
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        String isbnCode = br.readLine();
+        String ISBN = br.readLine();
 
-        int sumWithoutMissing = 0;
-        int expectedCheckDigit = Character.getNumericValue(isbnCode.charAt(isbnCode.length() - 1));
-        int missingWeight = 1;
+        int checkNumber = 0;
+        int m = Character.getNumericValue(ISBN.charAt(ISBN.length() - 1));
 
-        for (int idx = 0; idx < isbnCode.length() - 1; ++idx) {
-            int weight = (idx % 2 == 0) ? 1 : 3;
+        int value = 1;
+
+        for (int i = 0; i < ISBN.length() - 1; ++i) {
+            int mul = i % 2 == 0 ? 1 : 3;
             
-            if (isbnCode.charAt(idx) != '*') {
-                sumWithoutMissing += Character.getNumericValue(isbnCode.charAt(idx)) * weight;
+            if (ISBN.charAt(i) != '*') {
+                checkNumber += Character.getNumericValue(ISBN.charAt(i)) * mul;
             } else {
-                missingWeight = weight;
+                value = mul;
             }
         }
 
-        for (int digit = 0; digit <= 9; ++digit) {
-            int calculatedCheckDigit = 10 - ((sumWithoutMissing + (digit * missingWeight)) % 10);
+        for (int i = 0; i <= 9; ++i) {
+            int result = 10 - ((checkNumber + (i * value)) % 10);
 
-            if (calculatedCheckDigit % 10 == expectedCheckDigit) {
-                System.out.println(digit);
+            if (result == m || (m == 0 && result == 10)) {
+                System.out.println(i);
                 return;
             }
         }
