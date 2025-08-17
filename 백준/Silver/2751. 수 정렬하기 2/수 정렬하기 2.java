@@ -21,16 +21,20 @@ public class Main {
             }
         }
 
+        StringBuilder sb = new StringBuilder();
+
         for (int i = isNegative.length - 1; i >= 0; --i) {
             if (isNegative[i]) {
-                System.out.println(-i);
+                sb.append(-i).append("\n");
             }
         }
 
         for (int i = 0; i < isPositive.length; ++i) {
             if (isPositive[i]) {
-                System.out.println(i);
+                sb.append(i).append("\n");
             }
         }
+        
+        System.out.println(sb);
     }
 }
