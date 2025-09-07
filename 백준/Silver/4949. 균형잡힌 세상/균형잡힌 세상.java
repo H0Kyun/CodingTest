@@ -17,8 +17,6 @@ class Main {
             if (sentence.equals(".")) {
                 System.out.println(sb);
                 return;
-            } else {
-                sentence = sentence.replaceAll("\\.$", "");
             }
             
             StringTokenizer st = new StringTokenizer(sentence, " ");
@@ -28,20 +26,13 @@ class Main {
                 String token = st.nextToken();
                 
                 for (int i = 0; i < token.length(); ++i) {
-                    char t= token.charAt(i);
-                    if (t == '(') {
-                        delimiters.addFirst(t);
-                    } else if (t == '[') {
-                        delimiters.addFirst(t);
-                    } else if (t == ')') {
-                        if (delimiters.isEmpty() || delimiters.peek() != '(') {
-                            isValid = false;
-                            break;
-                        }
+                    char character = token.charAt(i);
+                    if (character == '(' || character == '[') {
+                        delimiters.addFirst(character);
+                    } else if (character == ')' || character == ']') {
+                        char opening = character == ')' ? '(' : '[';
                         
-                        delimiters.removeFirst();
-                    } else if (t == ']') {
-                        if (delimiters.isEmpty() || delimiters.peek() != '[') {
+                        if (delimiters.isEmpty() || delimiters.peek() != opening) {
                             isValid = false;
                             break;
                         }
