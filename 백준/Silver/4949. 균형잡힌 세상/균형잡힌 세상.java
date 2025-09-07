@@ -19,26 +19,22 @@ class Main {
                 return;
             }
             
-            StringTokenizer st = new StringTokenizer(sentence, " ");
             boolean isValid = true;
-            
-            while(st.hasMoreTokens() && isValid) {
-                String token = st.nextToken();
                 
-                for (int i = 0; i < token.length(); ++i) {
-                    char character = token.charAt(i);
-                    if (character == '(' || character == '[') {
-                        delimiters.addFirst(character);
-                    } else if (character == ')' || character == ']') {
-                        char opening = character == ')' ? '(' : '[';
-                        
-                        if (delimiters.isEmpty() || delimiters.peek() != opening) {
-                            isValid = false;
-                            break;
-                        }
-                        
-                        delimiters.removeFirst();
+            for (int i = 0; i < sentence.length(); ++i) {
+                char character = sentence.charAt(i);
+                
+                if (character == '(' || character == '[') {
+                    delimiters.addFirst(character);
+                } else if (character == ')' || character == ']') {
+                    char opening = character == ')' ? '(' : '[';
+
+                    if (delimiters.isEmpty() || delimiters.peek() != opening) {
+                        isValid = false;
+                        break;
                     }
+
+                    delimiters.removeFirst();
                 }
             }
             
